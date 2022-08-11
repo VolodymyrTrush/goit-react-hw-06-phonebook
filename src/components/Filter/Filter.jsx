@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { FilterContainer, FilterInput } from './Filter.styled';
-
 import { getFilter } from '../../redux/contactsSelectors';
 import { filterSlice } from '../../redux/myContacts/contactsSlice';
+
 const filterId = nanoid();
 
 export const Filter = () => {
@@ -21,7 +21,6 @@ export const Filter = () => {
           dispatch(filterSlice.actions.changeFilter(e.target.value))
         }
         id={filterId}
-        placeholder="enter contacts' name"
       />
     </FilterContainer>
   );

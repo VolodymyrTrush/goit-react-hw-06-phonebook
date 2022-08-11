@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ContactsTitle, List } from './ContactList.stiled';
