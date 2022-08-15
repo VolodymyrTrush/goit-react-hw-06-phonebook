@@ -1,40 +1,43 @@
-import PropTypes from 'prop-types';
+import {
+  ContactListList,
+  ContactListItem,
+  ContactsListText,
+} from './ContactList.styled';
+import { Button } from 'components/common/Button.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { ContactsTitle, List } from './ContactList.stiled';
-import { getVisibleContacts } from '../../redux/contactsSelectors';
-import { ContactsItem, DeleteButton, Text } from './ContactListItem/ContactListItem.styled';
-import { itemsSlice } from '../../redux/myContacts/contactsSlice';
+import { getItems, getFilter, deleteContact } from 'store/contacts/contacts';
 
 export const ContactList = () => {
-  const items = useSelector(getVisibleContacts);
+  const filter = useSelector(getFilter);
+  const items = useSelector(getItems);
   const dispatch = useDispatch();
-  return (
-    <div>
-      <ContactsTitle>Contacts list</ContactsTitle>
-      <List>
-        {items.map(({ id, name, number }) => {
-          return (
-            <ContactsItem key={id}>
-              <Text>Name: {name}</Text>
-              <Text>Number: {number}</Text>
-              <DeleteButton
-                type="button"
-                id={id}
-                onClick={evt =>
-                  dispatch(itemsSlice.actions.deleteContact(evt.target.id))
-                }
-              >
-                Delete
-              </DeleteButton>
-            </ContactsItem>
-          );
-        })}
-      </List>
-    </div>
-  );
-};
 
-ContactList.propTypes = {
-  contactsInfo: PropTypes.arrayOf(PropTypes.shape),
-  deleteContact: PropTypes.func,
+  const deleteItems = id => {
+    dispatch(deleteContact(id));
+  };
+
+  const getFilteredContacts = () => {
+    const normalizedContacts = filter.toLowerCase();
+    return items.filter(item =>
+      item.name.toLowerCase().includes(normalizedContacts)
+    );
+  };
+
+  const filteredContacts = getFilteredContacts();
+
+  return (
+    <ContactListList>
+      {filteredContacts.map(({ id, name, number }) => (
+        <ContactListItem key={id}>
+          <ContactsListText>
+            <span>{name}: </span>
+            <span>{number}</span>
+          </ContactsListText>
+          <Button type="button" onClick={() => deleteItems(id)}>
+            Delete
+          </Button>
+        </ContactListItem>
+      ))}
+    </ContactListList>
+  );
 };

@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import { App } from 'App';
 import { ThemeProvider } from 'styled-components';
-import { Provider } from 'react-redux';
-import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { theme } from './styleConfig/theme';
-import './index.css';
+import { persistor } from 'store/store';
+import { theme } from 'styleConfig/theme';
+import { store } from 'store/store';
+import { Provider } from 'react-redux';
+import GlobalCSS from './styleConfig/global.css.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+        <GlobalCSS />
           <App />
         </PersistGate>
       </Provider>

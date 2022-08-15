@@ -1,20 +1,17 @@
-
 import styled from 'styled-components';
 
-export const FilterContainer = styled.label`
+export const FilterFormLabel = styled.label`
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: ${p => p.theme.space[3]}px;
-  
-  align-items: center;
-  justify-content: center;
+  margin-top: ${p => p.theme.space[2]}px;
 `;
 
-export const FilterInput = styled.input`
+export const FilterLabelTitle = styled.span`
+  font-size: ${props => props.theme.fontSizes.m};
+`;
+
+export const FilteInput = styled.input`
   width: 500px;
   margin-top: ${p => p.theme.space[2]}px;
   padding: ${p => p.theme.space[2]}px;
-  
 `;
